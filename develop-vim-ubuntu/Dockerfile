@@ -15,12 +15,6 @@ RUN apt-get install -y vim wget make git git-lfs python2 python3 passwd lrzsz cl
 # sshd配置
 RUN sed -i 's/#Port 22/Port 22\nPort 36000/g' /etc/ssh/sshd_config && sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/g' /etc/ssh/sshd_config
 
-# 自动生成密钥文件，不用交互模式创建
-RUN ssh-keygen -q -t dsa -N '' -f /etc/ssh/ssh_host_dsa_key 
-RUN ssh-keygen -q -t rsa -N ''  -f /etc/ssh/ssh_host_rsa_key
-RUN chmod 600 /etc/ssh/ssh_host_dsa_key
-RUN chmod 600 /etc/ssh/ssh_host_rsa_key
-
 RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/0.10.0/plug.vim
 RUN yum install ctags -y
 
