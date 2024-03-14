@@ -32,8 +32,8 @@ RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubuserconte
 RUN yum install ctags -y
 
 # 需要源码编译的软件
-COPY LuaFormatter /tmp/LuaFormatter
-RUN cd /tmp/LuaFormatter && cmake . && make -j6 && make install
+COPY LuaFormatter.tar.gz /tmp
+RUN cd /tmp && tar -xf LuaFormatter.tar.gz && cd /tmp/LuaFormatter && cmake . && make -j6 && make install
 
 COPY .bashrc /root
 COPY .vimrc /root

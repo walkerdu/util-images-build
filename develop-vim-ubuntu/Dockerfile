@@ -15,6 +15,7 @@ RUN apt-get install -y vim wget make git git-lfs python2 python3 passwd lrzsz cl
 # sshd配置
 RUN sed -i 's/#Port 22/Port 22\nPort 36000/g' /etc/ssh/sshd_config && sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/g' /etc/ssh/sshd_config
 
+# vim-plug插件管理器
 RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # 需要源码编译的软件
