@@ -10,7 +10,10 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak && \
     apt-get update
 
 # 直接使用软件源的安装包
-RUN apt-get install -y vim wget make git git-lfs python2 python3 passwd lrzsz clang cmake golang openssh-server curl universal-ctags
+RUN apt-get install -y vim wget make git git-lfs python2 python3 passwd lrzsz clang cmake golang openssh-server curl universal-ctags locales
+
+# 设置语言环境
+RUN locale-gen en_US.UTF-8
 
 # sshd配置
 RUN sed -i 's/#Port 22/Port 22\nPort 36000/g' /etc/ssh/sshd_config && sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/g' /etc/ssh/sshd_config
@@ -22,8 +25,7 @@ RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubuserconte
 COPY LuaFormatter.tar.gz /tmp
 RUN cd /tmp && tar -xf LuaFormatter.tar.gz && cd /tmp/LuaFormatter && cmake . && make -j6 && make install
 
-COPY .bashrc /root
-COPY .vimrc /root
+COPY .bashrc .vimrc /root
 
 COPY localtime /etc/localtime
 
