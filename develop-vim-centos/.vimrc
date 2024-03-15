@@ -18,7 +18,7 @@ Plug 'vim-scripts/bash-support.vim'
 Plug 'preservim/nerdtree'
 Plug 'vim-scripts/a.vim'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe', { 'commit': '6b6354f', 'do': './install --all' }
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'dense-analysis/ale'
