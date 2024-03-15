@@ -10,7 +10,7 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak && \
     apt-get update
 
 # 直接使用软件源的安装包
-RUN apt-get install -y vim wget make git git-lfs python2 python3 passwd lrzsz clang cmake golang openssh-server curl universal-ctags locales
+RUN apt-get install -y vim wget make git git-lfs python2 python3 passwd lrzsz clang cmake golang openssh-server curl universal-ctags locales fish
 
 # 设置语言环境
 RUN locale-gen en_US.UTF-8
