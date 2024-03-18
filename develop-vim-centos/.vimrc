@@ -18,17 +18,17 @@ Plug 'vim-scripts/bash-support.vim'
 Plug 'preservim/nerdtree'
 Plug 'vim-scripts/a.vim'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-Plug 'Valloric/YouCompleteMe', { 'commit': '6b6354f', 'do': './install --all' }
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'Valloric/YouCompleteMe', { 'commit': '6b6354f', 'do': 'python3 install.py --force-sudo --system-libclang --clang-completer --clangd-completer --go-completer --ts-completer' }
 Plug 'dense-analysis/ale'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-fugitive'
+Plug 'andrejlevkovitch/vim-lua-format', { 'commit': '9996af0' }
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'rhysd/vim-clang-format'
-Plug 'andrejlevkovitch/vim-lua-format'
-"Plug 'vim-syntastic/syntastic'
 
 call plug#end()
 
@@ -330,21 +330,21 @@ let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
 "========================================LeaderF END===========================================
 
 "========================================YouCompleteMe BEGIN===========================================
-let g:ycm_add_preview_to_completeopt = 0
-let g:ycm_show_diagnostics_ui = 0
-let g:ycm_server_log_level = 'info'
-let g:ycm_min_num_identifier_candidate_chars = 2
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_complete_in_strings=1
-let g:ycm_key_invoke_completion = '<c-z>'
-set completeopt=menu,menuone
-
-noremap <c-z> <NOP>
-
-let g:ycm_semantic_triggers =  {
-            \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
-            \ 'cs,lua,javascript': ['re!\w{2}'],
-            \ }
+"let g:ycm_add_preview_to_completeopt = 0
+"let g:ycm_show_diagnostics_ui = 0
+"let g:ycm_server_log_level = 'info'
+"let g:ycm_min_num_identifier_candidate_chars = 2
+"let g:ycm_collect_identifiers_from_comments_and_strings = 1
+"let g:ycm_complete_in_strings=1
+"let g:ycm_key_invoke_completion = '<c-z>'
+"set completeopt=menu,menuone
+"
+"noremap <c-z> <NOP>
+"
+"let g:ycm_semantic_triggers =  {
+"            \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
+"            \ 'cs,lua,javascript': ['re!\w{2}'],
+"            \ }
 "========================================YouCompleteMe END===========================================
 
 
@@ -397,17 +397,6 @@ nnoremap <buffer> <c-k> :call LuaFormat()<cr>
 "命令模式下直接输入LuaFormat进行格式化，借鉴ClangForamt
 :command LuaFormat call LuaFormat()
 "========================================vim-lua-format END===========================================
-
-"========================================syntastic BEGIN===========================================
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-"========================================syntastic END===========================================
 
 "========================================walkerdu-BEGIN===========================================
 
