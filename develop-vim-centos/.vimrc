@@ -18,7 +18,7 @@ Plug 'vim-scripts/bash-support.vim'
 Plug 'preservim/nerdtree'
 Plug 'vim-scripts/a.vim'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-Plug 'Valloric/YouCompleteMe', { 'commit': '6b6354f', 'do': 'python3 install.py --force-sudo --system-libclang --clang-completer --clangd-completer --go-completer --ts-completer' }
+Plug 'Valloric/YouCompleteMe', { 'commit': 'd088ff7', 'do': 'python3 install.py --force-sudo --system-libclang --clang-completer --clangd-completer --go-completer --ts-completer' }
 Plug 'dense-analysis/ale'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -330,6 +330,8 @@ let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
 "========================================LeaderF END===========================================
 
 "========================================YouCompleteMe BEGIN===========================================
+"输入第一个字符后，就进行输入提示
+let g:ycm_min_num_of_chars_for_completion = 1
 "let g:ycm_add_preview_to_completeopt = 0
 "let g:ycm_show_diagnostics_ui = 0
 "let g:ycm_server_log_level = 'info'
