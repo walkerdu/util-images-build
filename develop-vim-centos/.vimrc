@@ -19,8 +19,7 @@ Plug 'preservim/nerdtree'
 Plug 'vim-scripts/a.vim'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'Valloric/YouCompleteMe', { 'commit': 'd088ff7', 'do': 'python3 install.py --force-sudo --system-libclang --clang-completer --clangd-completer --go-completer --ts-completer' }
-Plug 'dense-analysis/ale'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+"Plug 'dense-analysis/ale'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'ludovicchabant/vim-gutentags'
