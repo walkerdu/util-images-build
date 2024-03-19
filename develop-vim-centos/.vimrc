@@ -12,8 +12,8 @@ call plug#begin('~/.vim/plugged')
 
 " Make sure you use single quotes
 
-Plug 'vim-scripts/taglist.vim'
-Plug 'jlanzarotta/bufexplorer'
+Plug 'vim-scripts/taglist.vim', { 'commit': '53041fb' }
+Plug 'jlanzarotta/bufexplorer', { 'commit': '20f0440' }
 Plug 'vim-scripts/bash-support.vim'
 Plug 'preservim/nerdtree'
 Plug 'vim-scripts/a.vim'

@@ -44,8 +44,6 @@ COPY vim-9.1.0186.tar.gz /tmp
 #RUN cd /tmp && tar -xf /tmp/vim-9.1.0186.tar.gz && cd /tmp/vim-9.1.0186 && ./configure LIBS="-lpthread" --enable-python3interp && make -j10 && make install && rm -rf /tmp/vim-*
 RUN cd /tmp && tar -xf /tmp/vim-9.1.0186.tar.gz && cd /tmp/vim-9.1.0186 && ./configure --enable-python3interp && make -j10 && make install && rm -rf /tmp/vim-*
 RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/0.13.0/plug.vim
-
-
 COPY .bashrc /root
 COPY .vimrc /root
 
