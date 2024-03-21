@@ -34,7 +34,7 @@ RUN cd /tmp && tar -xf Python-3.11.8.tgz && cd /tmp/Python-3.11.8 && ./configure
 #4. 编译clang 17, YCM需要最低的clang 17.0.1的版本
 # clang17 编译需要Python3.6以上的版本，所以需要先编译Python
 ADD https://github.com/llvm/llvm-project/releases/download/llvmorg-17.0.1/llvm-project-17.0.1.src.tar.xz /tmp/
-RUN cd /tmp && tar -xf llvm-project-17.0.1.src.tar.xz && cd /tmp/llvm-project-17.0.1.src && mkdir build && cd build && cmake -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra" -DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles" ../llvm  && make -j8 &&>
+RUN cd /tmp && tar -xf llvm-project-17.0.1.src.tar.xz && cd /tmp/llvm-project-17.0.1.src && mkdir build && cd build && cmake -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra" -DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles" ../llvm  && make -j8 && make install && rm -rf /tmp/llvm-project*
 
 #5. 编译LuaFormatter
 COPY LuaFormatter.tar.gz /tmp
