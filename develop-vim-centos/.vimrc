@@ -331,6 +331,7 @@ let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
 "========================================YouCompleteMe BEGIN===========================================
 "输入第一个字符后，就进行输入提示
 let g:ycm_min_num_of_chars_for_completion = 1
+let g:ycm_clangd_binary_path = '/usr/local/bin/clangd'
 "let g:ycm_add_preview_to_completeopt = 0
 "let g:ycm_show_diagnostics_ui = 0
 "let g:ycm_server_log_level = 'info'
