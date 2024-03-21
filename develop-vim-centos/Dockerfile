@@ -59,6 +59,10 @@ COPY .vimrc /root
 #8. 设置UTC+8时区
 COPY localtime /etc/localtime
 
+#9 编译lua5.3.4
+COPY lua-5.3.4.tar.gz /tmp
+RUN cd /tmp && tar -xf lua-5.3.4.tar.gz && cd lua-5.3.4 && make linux && make install && rm -rf /tmp/lua-5.3.4*
+
 #RUN echo -e 'LANG=en_US.utf-8\nLC_ALL=en_US.utf-8' >> /etc/environment
 #RUN echo -e 'LC_ALL=en_US.utf-8' >> /etc/environment
 
