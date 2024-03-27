@@ -12,23 +12,17 @@ call plug#begin('~/.vim/plugged')
 
 " Make sure you use single quotes
 
-Plug 'vim-scripts/taglist.vim', { 'commit': '53041fb' }
 Plug 'jlanzarotta/bufexplorer', { 'commit': '20f0440' }
-Plug 'vim-scripts/bash-support.vim'
-Plug 'preservim/nerdtree'
-Plug 'vim-scripts/a.vim'
+Plug 'WolfgangMehner/bash-support', { 'commit': '99c746c' }
+Plug 'preservim/nerdtree', { 'tag': '7.1.2' }
+Plug 'vim-scripts/a.vim', { 'tag': '2.18' }
 Plug 'Yggdroot/LeaderF', { 'tag': 'v1.25', 'do': ':LeaderfInstallCExtension' }
 Plug 'Valloric/YouCompleteMe', { 'commit': 'd088ff7', 'do': 'python3 install.py --force-sudo --system-libclang --clang-completer --clangd-completer --go-completer --ts-completer' }
-"Plug 'dense-analysis/ale'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
 Plug 'ludovicchabant/vim-gutentags', { 'commit': 'aa47c5e' }
 Plug 'preservim/tagbar', { 'commit': '12edcb5' }
-Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive', { 'commit': '2377e16' }
 Plug 'andrejlevkovitch/vim-lua-format', { 'commit': '9996af0' }
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'rhysd/vim-clang-format'
+Plug 'fatih/vim-go', { 'commit': '14eedf6', 'do': ':GoUpdateBinaries' }
 
 call plug#end()
 
@@ -321,7 +315,31 @@ noremap <leader>lfgp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><C
 "========================================YouCompleteMe BEGIN===========================================
 "输入第一个字符后，就进行输入提示
 let g:ycm_min_num_of_chars_for_completion = 1
+
+" 使用自定义的clangd
 let g:ycm_clangd_binary_path = '/usr/local/bin/clangd'
+
+" 启用ycm的代码语义高亮，下面是对应语义元素对应的颜色组，可以自动适配不同的colorscheme
+let g:ycm_enable_semantic_highlighting=1
+let MY_YCM_HIGHLIGHT_GROUP = {
+      \   'typeParameter': 'PreProc',
+      \   'parameter': 'Identifier',
+      \   'variable': 'Identifier',
+      \   'property': 'Normal',
+      \   'enumMember': 'Constant',
+      \   'contant': 'Constant',
+      \   'event': 'Special',
+      \   'member': 'Special',
+      \   'function': 'Identifier',
+      \   'class': 'Special',
+      \   'namespace': 'Special',
+      \ }
+
+for tokenType in keys( MY_YCM_HIGHLIGHT_GROUP )
+  call prop_type_add( 'YCM_HL_' . tokenType,
+                    \ { 'highlight': MY_YCM_HIGHLIGHT_GROUP[ tokenType ] } )
+endfor
+
 "let g:ycm_add_preview_to_completeopt = 0
 "let g:ycm_show_diagnostics_ui = 0
 "let g:ycm_server_log_level = 'info'
@@ -363,6 +381,7 @@ let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 "
 "========================================fugitive BEGIN===========================================
 nnoremap <script> <silent> <unique> <Leader>gitb :Git blame<CR>
+nnoremap <script> <silent> <unique> <Leader>gitd :Git diff<CR>
 "========================================fugitive END===========================================
 
 "========================================nerdtree BEGIN===========================================
