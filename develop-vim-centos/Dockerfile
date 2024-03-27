@@ -11,7 +11,7 @@ RUN yum repolist
 
 #1. 直接使用软件源的安装包
 #glibc-langpack-en.x86_64 -y     # centos镜像没有安装en的语言包，安装一下否则无法设置en_US.UTF-8的locale
-RUN yum install wget gcc gcc-c++.x86_64 make cmake3 git git-svn git-lfs svn python2 python2-devel openssh-server.x86_64 glibc-langpack-en.x86_64 passwd lrzsz ctags npm -y
+RUN yum install wget gcc gcc-c++.x86_64 make cmake3 git git-svn git-lfs svn python2 python2-devel openssh-server.x86_64 glibc-langpack-en.x86_64 passwd lrzsz autoconf automake npm -y
 
 #2. sshd配置
 RUN sed -i 's/#Port 22/Port 22\nPort 36000/g' /etc/ssh/sshd_config && sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/g' /etc/ssh/sshd_config
@@ -62,6 +62,11 @@ COPY localtime /etc/localtime
 #9 编译lua5.3.4
 COPY lua-5.3.4.tar.gz /tmp
 RUN cd /tmp && tar -xf lua-5.3.4.tar.gz && cd lua-5.3.4 && make linux && make install && rm -rf /tmp/lua-5.3.4*
+
+#10. 编译ctags，取代默认的Exuberant Ctags
+COPY universal-ctags-6.1.0.tar.gz /tmp
+RUN cd /tmp && tar -xf universal-ctags-6.1.0.tar.gz && cd universal-ctags-6.1.0 && ./autogen.sh && ./configure && make -j8 && make install && rm -rf /tmp/universal-ctags*
+
 
 #RUN echo -e 'LANG=en_US.utf-8\nLC_ALL=en_US.utf-8' >> /etc/environment
 #RUN echo -e 'LC_ALL=en_US.utf-8' >> /etc/environment

@@ -17,12 +17,13 @@ Plug 'jlanzarotta/bufexplorer', { 'commit': '20f0440' }
 Plug 'vim-scripts/bash-support.vim'
 Plug 'preservim/nerdtree'
 Plug 'vim-scripts/a.vim'
-Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+Plug 'Yggdroot/LeaderF', { 'tag': 'v1.25', 'do': ':LeaderfInstallCExtension' }
 Plug 'Valloric/YouCompleteMe', { 'commit': 'd088ff7', 'do': 'python3 install.py --force-sudo --system-libclang --clang-completer --clangd-completer --go-completer --ts-completer' }
 "Plug 'dense-analysis/ale'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'ludovicchabant/vim-gutentags'
+Plug 'ludovicchabant/vim-gutentags', { 'commit': 'aa47c5e' }
+Plug 'preservim/tagbar', { 'commit': '12edcb5' }
 Plug 'tpope/vim-fugitive'
 Plug 'andrejlevkovitch/vim-lua-format', { 'commit': '9996af0' }
 Plug 'octol/vim-cpp-enhanced-highlight'
@@ -278,30 +279,30 @@ inoremap <silent> <F11>  <Esc><Esc>:Tlist<CR>
 
 
 "========================================LeaderF BEGIN===========================================
-nnoremap <script> <silent> <unique> <Leader>lff :LeaderfFile<CR>
-nnoremap <script> <silent> <unique> <Leader>lfu :LeaderfFunction<CR>
-nnoremap <script> <silent> <unique> <Leader>lfg :Leaderf rg ...<CR>
+let g:Lf_CacheDirectory = expand('~/.vim/cache')
 
-
+" 以下为官方推荐的配置, 不过改了快捷指令
+" https://github.com/Yggdroot/LeaderF?tab=readme-ov-file#configuration-examples
+"
 " don't show the help in normal mode
 let g:Lf_HideHelp = 1
 let g:Lf_UseCache = 0
 let g:Lf_UseVersionControlTool = 0
 let g:Lf_IgnoreCurrentBufferName = 1
 " popup mode
-"let g:Lf_WindowPosition = 'popup'
-"let g:Lf_PreviewInPopup = 1
+let g:Lf_WindowPosition = 'popup'
 let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu Sans Mono for Powerline" }
 let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
 
-let g:Lf_ShortcutF = "<leader>ff"
-noremap <leader>fb :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
-noremap <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
-noremap <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
-noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
+let g:Lf_ShortcutF = "<leader>lff"
+noremap <leader>lfb :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
+noremap <leader>lfm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
+noremap <leader>lfbt :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
+noremap <leader>lft :<C-U><C-R>=printf("Leaderf tag %s", "")<CR><CR>
+noremap <leader>lfl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
 
-" noremap <C-B> :<C-U><C-R>=printf("Leaderf! rg --current-buffer -e %s ", expand("<cword>"))<CR>
-" noremap <C-F> :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
+noremap <C-B> :<C-U><C-R>=printf("Leaderf! rg --current-buffer -e %s ", expand("<cword>"))<CR>
+noremap <C-F> :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
 " search visually selected text literally
 xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
 noremap go :<C-U>Leaderf! rg --recall<CR>
@@ -309,23 +310,12 @@ noremap go :<C-U>Leaderf! rg --recall<CR>
 " should use `Leaderf gtags --update` first
 let g:Lf_GtagsAutoGenerate = 0
 let g:Lf_Gtagslabel = 'native-pygments'
-noremap <leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
-noremap <leader>fd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
-noremap <leader>fo :<C-U><C-R>=printf("Leaderf! gtags --recall %s", "")<CR><CR>
-noremap <leader>fn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
-noremap <leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
+noremap <leader>lfgr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <leader>lfgd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <leader>lfgo :<C-U><C-R>=printf("Leaderf! gtags --recall %s", "")<CR><CR>
+noremap <leader>lfgn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
+noremap <leader>lfgp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
 
-
-let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
-let g:Lf_WorkingDirectoryMode = 'AF'
-let g:Lf_WindowHeight = 0.30
-let g:Lf_CacheDirectory = expand('~/.vim/cache')
-let g:Lf_ShowRelativePath = 0
-let g:Lf_HideHelp = 1
-let g:Lf_StlColorscheme = 'powerline'
-let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
-"let g:Lf_UseVersionControlTool = 0
-"let g:Lf_WildIgnore={'file':['*.pb.go', '*.vcxproj'],'dir':[]}
 "========================================LeaderF END===========================================
 
 "========================================YouCompleteMe BEGIN===========================================
@@ -376,8 +366,20 @@ nnoremap <script> <silent> <unique> <Leader>gitb :Git blame<CR>
 "========================================fugitive END===========================================
 
 "========================================nerdtree BEGIN===========================================
+" 将:NERDTree命令映射到快捷键：\NE
 nnoremap <script> <silent> <unique> <Leader>NE :NERDTree%<CR>
+
+" NERDTree显示文件的行数
+let g:NERDTreeFileLines = 1
+
+" 打开vim自动开启，并将光标切换到打开的文件区域
+autocmd VimEnter * NERDTree | wincmd p
 "========================================nerdtree END===========================================
+
+"========================================tagbar BEGIN===========================================
+" 打开vim自动开启
+autocmd VimEnter * Tagbar
+"========================================tagbar END===========================================
 
 "========================================vim-clang-format BEGIN===========================================
 "退出插入模式时自动格式化
