@@ -44,7 +44,15 @@ RUN cd /tmp && tar -xf LuaFormatter.tar.gz && cd /tmp/LuaFormatter && cmake . &&
 COPY go1.22.1.linux-amd64.tar.gz /tmp
 RUN  rm -rf /usr/local/go && tar -C /usr/local -xzf /tmp/go1.22.1.linux-amd64.tar.gz  && rm /tmp/go1.22.1.linux-amd64.tar.gz
 
-#7. 编译vim
+#7 编译lua5.3.4
+COPY lua-5.3.4.tar.gz /tmp
+RUN cd /tmp && tar -xf lua-5.3.4.tar.gz && cd lua-5.3.4 && make linux && make install && rm -rf /tmp/lua-5.3.4*
+
+#8. 编译ctags，取代默认的Exuberant Ctags
+COPY universal-ctags-6.1.0.tar.gz /tmp
+RUN cd /tmp && tar -xf universal-ctags-6.1.0.tar.gz && cd universal-ctags-6.1.0 && ./autogen.sh && ./configure && make -j8 && make install && rm -rf /tmp/universal-ctags*
+
+#9. 编译vim
 # 编译vim及其插件所需
 RUN yum install ncurses-devel.x86_64 -y
 
@@ -52,25 +60,21 @@ COPY vim-9.1.0186.tar.gz /tmp
 # Python如果编译生产的额是静态库，vim的编译需要链接pthread
 #RUN cd /tmp && tar -xf /tmp/vim-9.1.0186.tar.gz && cd /tmp/vim-9.1.0186 && ./configure LIBS="-lpthread" --enable-python3interp && make -j10 && make install && rm -rf /tmp/vim-*
 RUN cd /tmp && tar -xf /tmp/vim-9.1.0186.tar.gz && cd /tmp/vim-9.1.0186 && ./configure --enable-python3interp && make -j10 && make install && rm -rf /tmp/vim-*
-RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/0.13.0/plug.vim
-COPY .bashrc /root
-COPY .vimrc /root
 
-#8. 设置UTC+8时区
+#10. vim-plug插件安装
+RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/0.13.0/plug.vim
+
+#11. 设置UTC+8时区
 COPY localtime /etc/localtime
 
-#9 编译lua5.3.4
-COPY lua-5.3.4.tar.gz /tmp
-RUN cd /tmp && tar -xf lua-5.3.4.tar.gz && cd lua-5.3.4 && make linux && make install && rm -rf /tmp/lua-5.3.4*
-
-#10. 编译ctags，取代默认的Exuberant Ctags
-COPY universal-ctags-6.1.0.tar.gz /tmp
-RUN cd /tmp && tar -xf universal-ctags-6.1.0.tar.gz && cd universal-ctags-6.1.0 && ./autogen.sh && ./configure && make -j8 && make install && rm -rf /tmp/universal-ctags*
+#12. 自定义的bash, vim的配置
+COPY .bashrc /root
+COPY .vimrc /root
 
 
 #RUN echo -e 'LANG=en_US.utf-8\nLC_ALL=en_US.utf-8' >> /etc/environment
 #RUN echo -e 'LC_ALL=en_US.utf-8' >> /etc/environment
 
-EXPOSE 36000
+#EXPOSE 36000
 
 #CMD ["/usr/sbin/sshd", "-D", "-e", "-f", "/etc/ssh/sshd_config"]
