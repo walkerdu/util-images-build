@@ -26,36 +26,6 @@ Plug 'fatih/vim-go', { 'commit': '14eedf6', 'do': ':GoUpdateBinaries' }
 
 call plug#end()
 
-" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
-"Plug 'junegunn/vim-easy-align'
-
-" Any valid git URL is allowed
-"Plug 'https://github.com/junegunn/vim-github-dashboard.git'
-
-" Multiple Plug commands can be written in a single line using | separators
-"Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-
-" On-demand loading
-"Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-"Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
-
-" Using a non-default branch
-"Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
-
-" Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
-"Plug 'fatih/vim-go', { 'tag': '*' }
-
-" Plugin options
-"Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
-
-" Plugin outside ~/.vim/plugged with post-update hook
-"Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-
-" Unmanaged plugin (manually installed and updated)
-"Plug '~/my-prototype-plugin'
-
-" Initialize plugin system
-
 "==============================vim-plug END=================================================
 "
 "
@@ -340,17 +310,6 @@ for tokenType in keys( MY_YCM_HIGHLIGHT_GROUP )
                     \ { 'highlight': MY_YCM_HIGHLIGHT_GROUP[ tokenType ] } )
 endfor
 
-"let g:ycm_add_preview_to_completeopt = 0
-"let g:ycm_show_diagnostics_ui = 0
-"let g:ycm_server_log_level = 'info'
-"let g:ycm_min_num_identifier_candidate_chars = 2
-"let g:ycm_collect_identifiers_from_comments_and_strings = 1
-"let g:ycm_complete_in_strings=1
-"let g:ycm_key_invoke_completion = '<c-z>'
-"set completeopt=menu,menuone
-"
-"noremap <c-z> <NOP>
-"
 "let g:ycm_semantic_triggers =  {
 "            \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
 "            \ 'cs,lua,javascript': ['re!\w{2}'],
@@ -400,12 +359,6 @@ autocmd VimEnter * NERDTree | wincmd p
 autocmd VimEnter * Tagbar
 "========================================tagbar END===========================================
 
-"========================================vim-clang-format BEGIN===========================================
-"退出插入模式时自动格式化
-"let g:clang_format#auto_format_on_insert_leave=1
-let g:clang_format#detect_style_file=1
-"========================================vim-clang-format END===========================================
-"
 "========================================vim-go BEGIN===========================================
 let g:go_imports_autosave = 0
 "========================================vim-go END===========================================
@@ -452,9 +405,6 @@ set wrap!
 
 set colorcolumn=120
 set fileformat=unix
-
-"------------------plugin-in------------------
-let Tlist_Use_Right_Window = 1
 
 "-----------------python header BEGIN---------------------
 func HeaderPython()
@@ -540,10 +490,6 @@ endfunc
 
 autocmd bufnewfile *.lua call HeaderLua()
 "-----------------lua header END---------------------
-
-
-
-
 
 
 "========================================walkerdu-END===========================================
