@@ -332,6 +332,10 @@ if !isdirectory(s:vim_tags)
    silent! call mkdir(s:vim_tags, 'p')
 endif
 
+" 忽略一些大文件的解析
+let g:gutentags_ctags_exclude_wildignore = 1
+let g:gutentags_ctags_exclude = ['*.log.*', '*.a', '*.so']
+
 " 配置 ctags 的参数 "
 let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+pxI']
