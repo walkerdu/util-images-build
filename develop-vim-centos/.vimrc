@@ -245,6 +245,11 @@ inoremap <silent> <F11>  <Esc><Esc>:Tlist<CR>
 "========================================LeaderF BEGIN===========================================
 let g:Lf_CacheDirectory = expand('~/.vim/cache')
 
+" 优先级A>F， 参考帮助文档
+" A: 表示把当前文件的最近祖先（g:Lf_RootMarkers定义的）作为工作目录，
+" F: 如果当前工作目录不是当前文件的直接祖先节点，则使用当前文件所在目录作为工作目录
+let g:Lf_WorkingDirectoryMode = 'AF'
+
 " 以下为官方推荐的配置, 不过改了快捷指令
 " https://github.com/Yggdroot/LeaderF?tab=readme-ov-file#configuration-examples
 "
