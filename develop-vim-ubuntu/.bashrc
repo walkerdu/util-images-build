@@ -20,10 +20,10 @@ export PS1="\[\e[32m\][\u@\h \w]\$\[\e[m\]"
 
 ulimit -c unlimited
 
-export PATH=/usr/local/subversion-1.8.13/bin:$PATH
-export PATH=/usr/local/gperftools-2.5/bin:$PATH
+export PATH=/usr/local/go/bin:$PATH
 
-export LD_LIBRARY_PATH=/usr/local/gperftools-2.5/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+
 alias git-log="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %an %s %Cgreen(%ad)%Creset' --abbrev-commit --date='iso'"
 
 alias cmd='cd /data/walkerdu_repo/manual && ./cmd.sh'
