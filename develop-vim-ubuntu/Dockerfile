@@ -6,7 +6,7 @@ RUN sed -i 's#security.ubuntu.com#mirrors.cloud.tencent.com#g' /etc/apt/sources.
     apt-get update 
 
 # 直接使用软件源的安装包
-RUN apt-get install -y vim wget make git python2 python3 passwd lrzsz clang cmake golang curl universal-ctags locales fish git-lfs openssh-server 
+RUN apt-get install -y vim wget make git python2 python3 passwd lrzsz clang cmake golang curl universal-ctags locales fish git-lfs openssh-server libreadline-dev
 
 # 设置语言环境
 RUN locale-gen en_US.UTF-8
