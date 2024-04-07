@@ -6,7 +6,7 @@ RUN sed -i 's#security.ubuntu.com#mirrors.cloud.tencent.com#g' /etc/apt/sources.
     apt-get update 
 
 # 直接使用软件源的安装包
-RUN apt-get install -y vim wget make git python2 python3 passwd lrzsz clang cmake curl universal-ctags locales fish git-lfs openssh-server libreadline-dev
+RUN apt-get install -y vim wget make git python2 python2-dev python3 python3-dev hpasswd lrzsz clang cmake curl universal-ctags locales fish git-lfs openssh-server libreadline-dev
 
 # sshd配置
 RUN sed -i 's/#Port 22/Port 22\nPort 36000/g' /etc/ssh/sshd_config && sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/g' /etc/ssh/sshd_config
