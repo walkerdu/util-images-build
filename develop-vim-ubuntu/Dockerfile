@@ -1,19 +1,15 @@
-#FROM ubuntu:22.04
-FROM walkerdu/ubuntu
+FROM ubuntu:22.04
 
 # 更换源
-#RUN sed -i 's#security.ubuntu.com#mirrors.cloud.tencent.com#g' /etc/apt/sources.list && \
-#    sed -i 's#archive.ubuntu.com#mirrors.cloud.tencent.com#g' /etc/apt/sources.list
-
-#RUN apt-get update 
+RUN sed -i 's#security.ubuntu.com#mirrors.cloud.tencent.com#g' /etc/apt/sources.list && \
+    sed -i 's#archive.ubuntu.com#mirrors.cloud.tencent.com#g' /etc/apt/sources.list && \
+    apt-get update 
 
 # 直接使用软件源的安装包
-RUN apt-get install -y --no-install-recommends vim wget make git python2 python3 passwd lrzsz clang cmake golang curl universal-ctags locales fish
-RUN apt-get install -y --no-install-recommends git-lfs openssh-server 
+RUN apt-get install -y vim wget make git python2 python3 passwd lrzsz clang cmake golang curl universal-ctags locales fish git-lfs openssh-server 
 
 # 设置语言环境
 RUN locale-gen en_US.UTF-8
-
 
 #10. vim-plug插件安装
 RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/0.13.0/plug.vim
