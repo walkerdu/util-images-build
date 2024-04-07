@@ -17,7 +17,7 @@ RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubuserconte
 # 需要源码编译的软件
 # https://github.com/Koihik/LuaFormatter
 COPY LuaFormatter.tar.gz /tmp
-RUN cd /tmp && tar -xf LuaFormatter.tar.gz && cd /tmp/LuaFormatter && cmake . && make -j6 && make install && rm /tmp/LuaFormatter*
+RUN cd /tmp && tar -xf LuaFormatter.tar.gz && cd /tmp/LuaFormatter && cmake . && make -j6 && make install && rm -rf /tmp/LuaFormatter*
 
 #7 编译lua5.3.4
 COPY lua-5.3.4.tar.gz /tmp
