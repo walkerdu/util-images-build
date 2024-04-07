@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM --platform=linux/x86_64 ubuntu:22.04
 
 # 更换源
 RUN sed -i 's#security.ubuntu.com#mirrors.cloud.tencent.com#g' /etc/apt/sources.list && \
