@@ -24,6 +24,9 @@ RUN sed -i 's/#Port 22/Port 22\nPort 36000/g' /etc/ssh/sshd_config && \
     #sed -i 's/#AllowTcpForwarding yes/AllowTcpForwarding yes/g' /etc/ssh/sshd_config && \
     sed -i '/session    required     pam_loginuid.so/c\#session    required   pam_loginuid.so' /etc/pam.d/sshd
 
+#4. 安装go
+COPY go1.22.1.linux-amd64.tar.gz /tmp
+RUN  rm -rf /usr/local/go && tar -C /usr/local -xzf /tmp/go1.22.1.linux-amd64.tar.gz  && rm /tmp/go1.22.1.linux-amd64.tar.gz
 
 # 自动生成密钥文件，不用交互模式创建
 RUN ssh-keygen -q -t dsa -N '' -f /etc/ssh/ssh_host_dsa_key 
