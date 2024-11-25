@@ -23,6 +23,7 @@ Plug 'preservim/tagbar', { 'commit': '12edcb5' }
 Plug 'tpope/vim-fugitive', { 'commit': '2377e16' }
 Plug 'andrejlevkovitch/vim-lua-format', { 'commit': '9996af0' }
 Plug 'fatih/vim-go', { 'commit': '14eedf6', 'do': ':GoUpdateBinaries' }
+Plug 'rhysd/vim-clang-format', { 'commit': '6b79182' }
 
 call plug#end()
 
