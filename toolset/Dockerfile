@@ -8,11 +8,11 @@ RUN apt-get install -y vim curl git python3 python3-dev python3-pip
 
 # dependency by python2.7.18 compiling
 RUN apt-get install -y build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm libncurses5-dev libncursesw5-dev 
-RUN echo 'export PYENV_ROOT="$HOME/.pyenv"\
-export PATH="$PYENV_ROOT/bin:$PATH"\
-eval "$(pyenv init --path)"\
-eval "$(pyenv init -)"\
-eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc && source ~/.bashrc && pyenv install 2.7.8
+RUN curl -fsSL https://pyenv.run | bash
+RUN echo 'export PYENV_ROOT="$HOME/.pyenv"\n\
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"\n\
+eval "$(pyenv init - bash)"' >> ~/.bashrc
+RUN source ~/.bashrc && pyenv install 2.7.18
 
 ADD walkerdu_repo /data/walkerdu_repo
 
