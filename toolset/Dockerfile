@@ -1,7 +1,7 @@
 FROM --platform=linux/amd64 ubuntu:24.04
 
-#SHELL ["/bin/bash", "-c"]
-RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+SHELL ["/bin/bash", "-ic"]
+#RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 RUN sed -i 's#security.ubuntu.com#mirrors.cloud.tencent.com#g' /etc/apt/sources.list && \
     sed -i 's#archive.ubuntu.com#mirrors.cloud.tencent.com#g' /etc/apt/sources.list && \
@@ -14,8 +14,8 @@ RUN curl -fsSL https://pyenv.run | bash
 RUN echo -e 'export PYENV_ROOT="$HOME/.pyenv"\n\
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"\n\
 eval "$(pyenv init - bash)"\n\
-eval "$(pyenv virtualenv-init -)"' > ~/pyenv.sh && cat ~/pyenv.sh >> ~/.bashrc
-RUN source ~/pyenv.sh && env && pyenv install 2.7.18 && pyenv global 2.7.18 && pip install pycrypto && rm ~/pyenv.sh
+eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
+RUN source ~/.bashrc && env && pyenv install 2.7.18 && pyenv global 2.7.18 && pip install pycrypto
 
 ADD walkerdu_repo /data/walkerdu_repo
 
