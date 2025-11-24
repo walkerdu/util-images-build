@@ -78,6 +78,13 @@ RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubuserconte
 COPY .bashrc /root
 COPY .vimrc /root
 
+# ubuntu:22.04 默认没有生成任何 UTF-8 locale, 明确生成和设置一个存在的 locale
+RUN locale-gen en_US.UTF-8
+ENV LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
+
 EXPOSE 36000
 
+# SSH 服务（sshd）在启动时找不到用于 特权分离（privilege separation） 的运行时目录 /run/sshd
+RUN mkdir -p /run/sshd
+RUN mkdir ~/.ssh/ && touch ~/.ssh/authorized_keys
 CMD ["/usr/sbin/sshd", "-D", "-f", "/etc/ssh/sshd_config", "-E", "/tmp/sshd.log"]
