@@ -57,6 +57,13 @@ RUN sed -i 's/#Port 22/Port 22\nPort 36000/g' /etc/ssh/sshd_config && \
 COPY go1.22.1.linux-amd64.tar.gz /tmp
 RUN  rm -rf /usr/local/go && tar -C /usr/local -xzf /tmp/go1.22.1.linux-amd64.tar.gz  && rm /tmp/go1.22.1.linux-amd64.tar.gz
 
+#5. 按照nodejs
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash 
+RUN echo 'export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"' >> ~/.bashrc && \
+    echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm' >> ~/.bashrc && \
+    . ~/.bashrc && \
+    nvm install v24.14.0
+
 # 自动生成密钥文件，不用交互模式创建
 # ubuntu openssh安装后会自动生成
 #RUN ssh-keygen -q -t dsa -N '' -f /etc/ssh/ssh_host_dsa_key 
