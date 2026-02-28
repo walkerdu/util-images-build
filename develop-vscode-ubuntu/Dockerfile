@@ -42,6 +42,8 @@ RUN apt-get install -y --no-install-recommends \
 # 清理缓存，减小镜像体积
 RUN apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+# 自定义bashrc
+COPY .bashrc /root
 
 #2 编译lua5.3.4
 COPY lua-5.3.4.tar.gz /tmp
@@ -85,7 +87,6 @@ COPY localtime /etc/localtime
 RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/0.13.0/plug.vim
 
 # 自定义的bash, vim的配置
-COPY .bashrc /root
 COPY .vimrc /root
 
 # ubuntu:22.04 默认没有生成任何 UTF-8 locale, 明确生成和设置一个存在的 locale
