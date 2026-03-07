@@ -16,6 +16,7 @@ RUN apt-get install -y --no-install-recommends \
         wget \
         gcc \
         g++ \
+        clang \
         make \
         cmake \
         git \
@@ -29,8 +30,10 @@ RUN apt-get install -y --no-install-recommends \
         passwd \
         locales \
         lrzsz \
+        universal-ctags \
         npm \
         vim \
+        fish \
         libreadline-dev \
         ca-certificates \
         curl && \
@@ -49,15 +52,15 @@ COPY .bashrc /root
 COPY lua-5.3.4.tar.gz /tmp
 RUN cd /tmp && tar -xf lua-5.3.4.tar.gz && cd lua-5.3.4 && make linux && make install && rm -rf /tmp/lua-5.3.4*
 
-#3. sshd配置
-RUN sed -i 's/#Port 22/Port 22\nPort 36000/g' /etc/ssh/sshd_config && \
-    sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/g' /etc/ssh/sshd_config && \
-    #sed -i 's/#AllowTcpForwarding yes/AllowTcpForwarding yes/g' /etc/ssh/sshd_config && \
-    sed -i '/session    required     pam_loginuid.so/c\#session    required   pam_loginuid.so' /etc/pam.d/sshd
-
 #4. 安装go
 COPY go1.22.1.linux-amd64.tar.gz /tmp
 RUN  rm -rf /usr/local/go && tar -C /usr/local -xzf /tmp/go1.22.1.linux-amd64.tar.gz  && rm /tmp/go1.22.1.linux-amd64.tar.gz
+
+#5. LuaFormatter安装
+# 需要源码编译的软件
+# https://github.com/Koihik/LuaFormatter
+COPY LuaFormatter.tar.gz /tmp
+RUN cd /tmp && tar -xf LuaFormatter.tar.gz && cd /tmp/LuaFormatter && cmake . && make -j6 && make install && rm -rf /tmp/LuaFormatter*
 
 #5. 安装AI CLI
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash 
@@ -93,6 +96,11 @@ COPY .vimrc /root
 RUN locale-gen en_US.UTF-8
 ENV LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
 
+# sshd配置
+RUN sed -i 's/#Port 22/Port 22\nPort 36000/g' /etc/ssh/sshd_config && \
+    sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/g' /etc/ssh/sshd_config && \
+    #sed -i 's/#AllowTcpForwarding yes/AllowTcpForwarding yes/g' /etc/ssh/sshd_config && \
+    sed -i '/session    required     pam_loginuid.so/c\#session    required   pam_loginuid.so' /etc/pam.d/sshd
 EXPOSE 36000
 
 # SSH 服务（sshd）在启动时找不到用于 特权分离（privilege separation） 的运行时目录 /run/sshd
